@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { BeforeAfter } from '../components/BeforeAfter'
+import { SectionTitle } from '../components/SectionTitle'
 import auraPhoto1 from '../assets/AuraPhoto1.webp'
 import auraPhoto2 from '../assets/AuraPhoto2.webp'
 import auraPhoto3 from '../assets/AuraPhoto3.webp'
@@ -143,6 +144,64 @@ export function HomePage() {
               Liam McGrath and McGrath Electric Services is a Melbourne-based electrical contractor. All work is carried out by a licensed electrician.
             </p>
           </div>
+        </div>
+      </section>
+
+      {/* ── REVIEWS ──────────────────────────────────────────────── */}
+      <section id="reviews" className="panel reviews-panel">
+        <SectionTitle eyebrow="What clients say" title="Don't take our word for it." subtitle="" />
+        <div className="reviews-grid">
+          {[
+            {
+              name: "Sophia McNamara",
+              text: "I contacted about 8 electricians for a job, and Liam managed to respond AND complete the job before any of the others had even gotten back to me. Really great work and very reasonable pricing. After using a few dodgy electricians in the past, it's great to find someone I can trust.",
+              date: "11 months ago",
+            },
+            {
+              name: "Damien Camilleri",
+              text: "Called Liam and explained that we needed an oven swapped as a matter of urgency. He squeezed our job in at the end of the same day, turned up when he said he would and did a great job. Thanks guys, would definitely recommend these guys and use them again.",
+              date: "9 months ago",
+            },
+            {
+              name: "Gordon Terrill",
+              text: "Professional service from first phone call to completed job. Liam kept me informed of his arrival time and completed the job with efficiency. Now my electrician of choice. Thanks for the great service.",
+              date: "a year ago",
+            },
+            {
+              name: "Yolanda De Santis",
+              text: "Agree to a time - Liam will turn up! IF running 'late' you will receive a text - and 'late' usually means 5 mins. Liam takes pride in his work - leaves no stone unturned. Loyal. Trustworthy. Efficient. Cleanliness like no tomorrow. You WON'T be disappointed.",
+              date: "2 years ago",
+            },
+            {
+              name: "Pat Caminiti",
+              text: "Liam and the team were awesome to deal with! They were professional, friendly and finished the job (a whole house re-wire) far quicker than anticipated!",
+              date: "2 years ago",
+            },
+            {
+              name: "Dianne Uren",
+              text: "Extremely impressed and satisfied with Liam and Aaron's professionalism and punctuality. It was a very long day for them but nothing was too much trouble — they cleaned up my apartment beautifully on completion! Thanks guys!",
+              date: "2 months ago",
+            },
+          ].map((r) => (
+            <article key={r.name} className="review-card">
+              <div className="review-card__stars">
+                {"★★★★★"}
+              </div>
+              <p className="review-card__text">"{r.text}"</p>
+              <div className="review-card__author">
+                <div className="review-card__avatar">{r.name.charAt(0)}</div>
+                <div>
+                  <strong>{r.name}</strong>
+                  <span>{r.date} · Google</span>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+        <div className="reviews-badge">
+          <span className="reviews-badge__stars">★★★★★</span>
+          <span className="reviews-badge__score">5.0</span>
+          <span className="reviews-badge__count">60 reviews on Google</span>
         </div>
       </section>
 
