@@ -40,7 +40,7 @@ export function HomePage() {
         }}
       >
         <div className="hero-copy">
-          <h1>Melbourne's local electrician.</h1>
+          <h1>Melbourne's Best Local Electrician.</h1>
           <p className="lead">
             Switchboard upgrades, fault finding, and kitchen rewires. Licensed, insured, on time.
           </p>
@@ -140,7 +140,7 @@ export function HomePage() {
             <p className="eyebrow">About</p>
             <h2>The sparky behind the work.</h2>
             <p>
-              McGrath Electric Services is a Melbourne-based electrical contractor. All work is carried out by a licensed electrician — no subcontracting, no shortcuts.
+              Liam McGrath and McGrath Electric Services is a Melbourne-based electrical contractor. All work is carried out by a licensed electrician.
             </p>
           </div>
         </div>
