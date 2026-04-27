@@ -959,46 +959,92 @@ main {
 /* ── REVIEWS ──────────────────────────────────────────────────────── */
 .reviews-panel { background: #f7f9fb; }
 
-.reviews-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.25rem;
-  margin-top: 2.5rem;
-}
-
-.review-card {
-  background: #fff;
-  border-radius: 16px;
-  padding: 1.5rem 1.6rem;
-  box-shadow: var(--shadow);
+.rstack-wrapper {
   display: flex;
   flex-direction: column;
-  gap: 0.9rem;
+  align-items: center;
+  margin-top: 2.5rem;
+  gap: 2rem;
 }
 
-.review-card__stars {
+.rstack-stage {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  height: 300px;
+  /* extra horizontal space so fanned cards don't clip */
+  margin: 0 auto;
+  padding: 0 80px;
+  box-sizing: content-box;
+}
+
+.rstack-card {
+  background: #fff;
+  border-radius: 20px;
+  padding: 1.8rem 2rem;
+  box-shadow: 0 12px 40px rgba(17,22,27,0.13);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  user-select: none;
+  touch-action: pan-y;
+  width: 100%;
+  box-sizing: border-box;
+  will-change: transform;
+  transform-origin: bottom center;
+}
+
+.rstack-card--top {
+  cursor: grab;
+  box-shadow: 0 20px 60px rgba(17,22,27,0.18);
+}
+
+.rstack-card--top:active { cursor: grabbing; }
+
+.rstack-label {
+  position: absolute;
+  top: 1rem;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  padding: 0.3rem 0.7rem;
+  border-radius: 8px;
+  pointer-events: none;
+  background: var(--accent);
+  color: var(--ink);
+}
+
+.rstack-label--left  { left: 1rem; }
+.rstack-label--right { right: 1rem; }
+
+.rstack-card__stars {
   color: #f5a623;
-  font-size: 1rem;
-  letter-spacing: 0.05em;
+  font-size: 1.05rem;
+  letter-spacing: 0.08em;
 }
 
-.review-card__text {
-  font-size: 0.95rem;
-  line-height: 1.65;
+.rstack-card__text {
+  font-size: 0.97rem;
+  line-height: 1.7;
   color: var(--ink);
   flex: 1;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  line-clamp: 4;
+  -webkit-box-orient: vertical;
 }
 
-.review-card__author {
+.rstack-card__author {
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  margin-top: auto;
   padding-top: 0.75rem;
   border-top: 1px solid var(--line);
+  margin-top: auto;
 }
 
-.review-card__avatar {
+.rstack-card__avatar {
   width: 38px;
   height: 38px;
   border-radius: 50%;
@@ -1012,15 +1058,40 @@ main {
   flex-shrink: 0;
 }
 
-.review-card__author strong {
+.rstack-card__author strong {
   display: block;
   font-size: 0.88rem;
   color: var(--ink);
 }
 
-.review-card__author span {
+.rstack-card__author span {
   font-size: 0.78rem;
   color: var(--muted);
+}
+
+.rstack-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 480px;
+  padding: 0 0.25rem;
+}
+
+.rstack-hint {
+  font-size: 0.82rem;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.rstack-count {
+  font-size: 0.82rem;
+  color: var(--muted);
+  font-weight: 600;
+  background: #fff;
+  border: 1px solid var(--line);
+  padding: 0.25rem 0.65rem;
+  border-radius: 20px;
 }
 
 .reviews-badge {
@@ -1028,19 +1099,19 @@ main {
   align-items: center;
   justify-content: center;
   gap: 0.6rem;
-  margin-top: 2.5rem;
+  margin-top: 0.5rem;
   padding: 1rem 1.5rem;
   background: #fff;
   border-radius: 12px;
   box-shadow: var(--shadow);
   width: fit-content;
-  margin-left: auto;
-  margin-right: auto;
 }
 
 .reviews-badge__stars { color: #f5a623; font-size: 1.1rem; letter-spacing: 0.05em; }
 .reviews-badge__score { font-size: 1.3rem; font-weight: 800; color: var(--ink); }
 .reviews-badge__count { font-size: 0.9rem; color: var(--muted); }
+
+
 
 .site-footer {
   background: #0d1117;
@@ -1218,7 +1289,6 @@ main {
   .contact-panel,
   .site-footer__inner,
   .ba-pair,
-  .reviews-grid,
   .quote-form {
     grid-template-columns: 1fr;
   }
