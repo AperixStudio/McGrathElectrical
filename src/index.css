@@ -957,7 +957,7 @@ main {
 }
 
 /* ── REVIEWS ──────────────────────────────────────────────────────── */
-.reviews-panel { background: #f7f9fb; }
+.reviews-panel { background: #f7f9fb; overflow: hidden; }
 
 .rstack-wrapper {
   display: flex;
@@ -965,7 +965,6 @@ main {
   align-items: center;
   margin-top: 2.5rem;
   gap: 2rem;
-  overflow-x: hidden;  /* clips fanned cards on small screens, doesn't cut card bottoms */
   width: 100%;
 }
 
@@ -973,8 +972,9 @@ main {
   position: relative;
   width: 100%;
   max-width: 480px;
-  height: 340px;
+  min-height: 200px;
   margin: 0 auto;
+  /* height is set inline via JS to match the top card's rendered height */
 }
 
 .rstack-card {
@@ -1027,11 +1027,6 @@ main {
   line-height: 1.7;
   color: var(--ink);
   flex: 1;
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-line-clamp: 4;
-  line-clamp: 4;
-  -webkit-box-orient: vertical;
 }
 
 .rstack-card__author {

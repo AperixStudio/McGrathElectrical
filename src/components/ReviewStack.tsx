@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect, type RefObject } from 'react'
 import {
   motion, useTransform, animate, AnimatePresence,
   motionValue as createMotionValue,
@@ -36,11 +36,13 @@ function Card({
   index,
   x,
   onSwipe,
+  topRef,
 }: {
   review: Review
   index: number
   x: MotionValue<number>
   onSwipe: (dir: 1 | -1) => void
+  topRef?: React.RefObject<HTMLElement | null>
 }) {
   const isTop = index === 0
   const OFFSETS = getOffsets()
@@ -72,6 +74,7 @@ function Card({
   return (
     <motion.article
       className={`rstack-card${isTop ? ' rstack-card--top' : ''}`}
+      ref={topRef as RefObject<HTMLElement> | undefined}
       style={{
         x,                                    // always the MotionValue — no jump on index change
         rotate:  isTop ? rotate : off.rotate, // transform for top, static for others
@@ -116,6 +119,20 @@ function Card({
 
 export function ReviewStack({ reviews }: { reviews: Review[] }) {
   const [deck, setDeck] = useState(reviews)
+  const [stageHeight, setStageHeight] = useState(320)
+  const topCardRef = useRef<HTMLElement | null>(null)
+
+  // Measure the top card after each deck change so the stage fits it exactly
+  useEffect(() => {
+    if (!topCardRef.current) return
+    const maxY = Math.max(...OFFSETS_DESKTOP.map(o => o.y)) + 20
+    const ro = new ResizeObserver(entries => {
+      const h = entries[0]?.contentRect.height
+      if (h) setStageHeight(h + maxY)
+    })
+    ro.observe(topCardRef.current)
+    return () => ro.disconnect()
+  }, [deck])
 
   // Stable MotionValues per review name — survive re-renders and index changes
   const xMap = useRef<Map<string, MotionValue<number>>>(new Map())
@@ -135,7 +152,7 @@ export function ReviewStack({ reviews }: { reviews: Review[] }) {
 
   return (
     <div className="rstack-wrapper">
-      <div className="rstack-stage">
+      <div className="rstack-stage" style={{ height: stageHeight }}>
         <AnimatePresence mode="sync">
           {[...visible].reverse().map((r, i) => {
             const trueIndex = visible.length - 1 - i
@@ -146,6 +163,7 @@ export function ReviewStack({ reviews }: { reviews: Review[] }) {
                 index={trueIndex}
                 x={getX(r.name)}
                 onSwipe={swipe}
+                topRef={trueIndex === 0 ? topCardRef : undefined}
               />
             )
           })}
