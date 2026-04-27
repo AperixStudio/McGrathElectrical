@@ -965,17 +965,16 @@ main {
   align-items: center;
   margin-top: 2.5rem;
   gap: 2rem;
+  overflow-x: hidden;  /* clips fanned cards on small screens, doesn't cut card bottoms */
+  width: 100%;
 }
 
 .rstack-stage {
   position: relative;
   width: 100%;
   max-width: 480px;
-  height: 300px;
-  /* extra horizontal space so fanned cards don't clip */
+  height: 340px;
   margin: 0 auto;
-  padding: 0 80px;
-  box-sizing: content-box;
 }
 
 .rstack-card {
@@ -1071,8 +1070,9 @@ main {
 
 .rstack-meta {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  gap: 0.5rem;
   width: 100%;
   max-width: 480px;
   padding: 0 0.25rem;
@@ -1085,12 +1085,12 @@ main {
 }
 
 .rstack-count {
-  font-size: 0.82rem;
+  font-size: 0.78rem;
   color: var(--muted);
   font-weight: 600;
   background: #fff;
   border: 1px solid var(--line);
-  padding: 0.25rem 0.65rem;
+  padding: 0.2rem 0.7rem;
   border-radius: 20px;
 }
 

@@ -11,12 +11,25 @@ export interface Review {
   date: string
 }
 
-const OFFSETS = [
+const OFFSETS_DESKTOP = [
   { rotate: 0,    x: 0,   y: 0,  scale: 1    },
   { rotate: -7,   x: -44, y: 22, scale: 0.94 },
   { rotate:  7,   x:  44, y: 22, scale: 0.94 },
   { rotate: -13,  x: -76, y: 44, scale: 0.86 },
 ]
+
+const OFFSETS_MOBILE = [
+  { rotate: 0,   x: 0,   y: 0,  scale: 1    },
+  { rotate: -4,  x: -20, y: 14, scale: 0.96 },
+  { rotate:  4,  x:  20, y: 14, scale: 0.96 },
+  { rotate: -7,  x: -36, y: 28, scale: 0.90 },
+]
+
+function getOffsets() {
+  return typeof window !== 'undefined' && window.innerWidth < 540
+    ? OFFSETS_MOBILE
+    : OFFSETS_DESKTOP
+}
 
 function Card({
   review,
@@ -30,6 +43,7 @@ function Card({
   onSwipe: (dir: 1 | -1) => void
 }) {
   const isTop = index === 0
+  const OFFSETS = getOffsets()
   const off   = OFFSETS[Math.min(index, OFFSETS.length - 1)]
 
   const rotate      = useTransform(x, [-300, 300], [-25, 25])
